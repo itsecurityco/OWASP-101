@@ -4,13 +4,13 @@
 - [OWASP 101 - Bank App](#owasp-101---bank-app)
   - [Table of Contents](#table-of-contents)
   - [IDOR](#idor)
-  - [❓ What is a unique identifier?](#-what-is-a-unique-identifier)
-  - [🔎 How to detect it?](#-how-to-detect-it)
-  - [🩹 How to fix it?](#-how-to-fix-it)
+  - [What is a unique identifier?](#-what-is-a-unique-identifier)
+  - [How to detect it?](#-how-to-detect-it)
+  - [How to fix it?](#-how-to-fix-it)
     - [Code Example](#code-example)
       - [PHP](#php)
       - [Python](#python)
-  - [🚀 Hands-on](#-hands-on)
+  - [Hands-on](#-hands-on)
     - [Bank PY](#bank-py)
     - [Bank PHP](#bank-php)
   - [Credits](#credits)
@@ -61,7 +61,7 @@ if data["origin"] != request.user.products.get().number:
 ## 🚀 Hands-on
 Let's try to hack it 💀
 1. Download the distribution code from https://github.com/itsecurityco/OWASP-101/archive/refs/heads/A01.zip and unzip it.
-2. Run `docker compose build db` and and wait until it's over to build and populate the database.
+2. Run `docker compose up db -d` and and **wait until it's over** to build and populate the database.
 3. Run `docker compose up python -d` to build and start the vulnerable **Python** application.
 4. Run `docker compose up php -d` to build and start the vulnerable **PHP** application.
 5. Open your browser and go to http://localhost:5000/ to start hacking the **Bank PY**.
