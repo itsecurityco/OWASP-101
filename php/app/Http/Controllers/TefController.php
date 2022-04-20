@@ -93,15 +93,6 @@ class TefController extends Controller
         $tef->time        = date('h:i:s');
 
         // Check that origin account belongs to the current user.
-        if ($tef->origin != \Auth::user()->product->id) {
-            return array(
-                'code' => '0001',
-                'message' => array(
-                    'type' => 'alert-danger',
-                    'content' => 'Possible bank fraud. Your IP address has been logged.',
-                ),
-            );
-        }
 
         // Save origin status
         if (! $origin->save())
