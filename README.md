@@ -61,12 +61,11 @@ if data["origin"] != request.user.products.get().number:
 ## 🚀 Hands-on
 Let's try to hack it 💀
 1. Download the distribution code from https://github.com/itsecurityco/OWASP-101/archive/refs/heads/A01.zip and unzip it.
-2. Run `docker compose build db` and and wait until it's over to build and populate the database.
-3. Run `docker compose up db -d` to start the application database.
-4. Run `docker compose up python -d` to build and start the vulnerable **Python** application.
-5. Run `docker compose up php -d` to build and start the vulnerable **PHP** application.
-6. Open your browser and go to http://localhost:5000/ to start hacking the **Bank PY**.
-7. Open your browser and go to http://localhost:8000/ to start hacking the **Bank PHP**.
+2. Run `docker compose up db -d` and and **wait until it's over** to build and populate the database.
+3. Run `docker compose up python -d` to build and start the vulnerable **Python** application.
+4. Run `docker compose up php -d` to build and start the vulnerable **PHP** application.
+5. Open your browser and go to http://localhost:5000/ to start hacking the **Bank PY**.
+6. Open your browser and go to http://localhost:8000/ to start hacking the **Bank PHP**.
 
 ### Bank PY
 !["Bank PY"](images/BankPY.png "Bank PY")
