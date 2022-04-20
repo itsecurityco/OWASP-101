@@ -1,9 +1,24 @@
-# OWASP A01 - Bank App
+# OWASP 101 - Bank App
+
+## Table of Contents
+- [OWASP 101 - Bank App](#owasp-101---bank-app)
+  - [Table of Contents](#table-of-contents)
+  - [IDOR](#idor)
+  - [❓ What is a unique identifier?](#-what-is-a-unique-identifier)
+  - [🔎 How to detect it?](#-how-to-detect-it)
+  - [🩹 How to fix it?](#-how-to-fix-it)
+    - [Code Example](#code-example)
+      - [PHP](#php)
+      - [Python](#python)
+  - [🚀 Hands-on](#-hands-on)
+    - [Bank PY](#bank-py)
+    - [Bank PHP](#bank-php)
+  - [Credits](#credits)
 
 ## IDOR
 Insecure Direct Object References (IDOR) is an access control vulnerability that allows an attacker to manipulate another user's account through a unique identifier.
 
-## ❓What is a unique identifier?
+## ❓ What is a unique identifier?
 A unique identifier is a piece of data that is associated with a user and can be:
 
 * An incremental numeric value.
@@ -18,7 +33,7 @@ Let's take a look at an example of a real-life exploitation in a banking applica
 !["IDOR Comic S1"](images/A01BACS1.png "IDOR Comic S1")
 !["IDOR Comic S2"](images/A01BACS2.png "IDOR Comic S2")
 
-## 🩹How to fix it?
+## 🩹 How to fix it?
 Verify that the identifier you are accessing belongs to the user who is logged into the application.
 
 ### Code Example
