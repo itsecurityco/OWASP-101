@@ -1,9 +1,10 @@
 import json
 
+from bank.models import Bank, BeneficiaryBook, Product, Transfer
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import JsonResponse
 
-from bank.models import Bank, BeneficiaryBook, Product, Transfer
 
 def index(request):
     return JsonResponse({"msg": "Hello. You're at the api index."})
@@ -237,6 +238,15 @@ def transfer(request):
             return JsonResponse({
                 "code": dict(Transfer.CODES).get(Transfer.FAILED_CODE),
                 "message": {"type": "alert-danger", "content": "Failed to register transfer. Contact the administrator."},
+            })
+
+        # return flag
+        if origin_account.number == settings.FLAG_USER_ACCOUNT:
+            return JsonResponse({
+                "code": dict(Transfer.CODES).get(Transfer.APPROVED_CODE),
+                "message": {"type": "alert-success", "content": "Approved transaction."},
+                "originAccountBalance": origin_account.balance,
+                "flag": settings.FLAG,
             })
 
         # return origin account balance
