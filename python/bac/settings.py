@@ -138,7 +138,7 @@ MESSAGE_TAGS = {
 
 # Custom settings
 FLAG_USER_NAME = environ.get('FLAG_USER_NAME')
-FLAG_USER_ACCOUNT = environ.get('FLAG_USER_ACCOUNT')
+FLAG_USER_ACCOUNT = int(environ.get('FLAG_USER_ACCOUNT'))
 FLAG = environ.get('FLAG')
 INITIAL_DEPOSIT = environ.get('INITIAL_DEPOSIT')
 PYTHON_BANK_NAME = environ.get('PYTHON_BANK_NAME')
