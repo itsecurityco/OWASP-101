@@ -1,0 +1,285 @@
+{% extends "bank/layout.html" %}
+
+{% block content %}
+<main role="main" class="container">
+    <div class="starter-template">
+        <div class="mb-5 text-center">
+            <h2>Transfer</h2>
+            <p class="lead">Make a Transfer</p>
+        </div>
+        <div id="form">
+            {% csrf_token %}
+            <div class="row">
+
+                <div class="col-md-8 order-md-1">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="origin">Origin Account</label>
+                            <input type="text" class="form-control" id="text_origin" disabled>
+                            <input type="hidden" id="origin" name="origin" value="">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="dest">Beneficiary</label>
+                            <select class="form-select d-block w-100" id="book_list" required="" onchange="update_details(this)"></select>
+                            <input type="hidden" id="beneficiary_account" name="beneficiary_account" value="">
+                            <input type="hidden" id="beneficiary_bank" name="beneficiary_bank" value="">
+                            <input type="hidden" id="beneficiary_name" beneficiary_name="name" value="">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label" for="amount">Amount</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                <span class="input-group-text">$</span>
+                                </div>
+                                <input type="text" class="form-control" id="amount" name="amount" placeholder="Enter amount" required="">
+                            </div>
+                        </div>
+                        <div class="col-md-6 mb-3 text-end">
+                            <a href="#" class="text-decoration-none" data-bs-toggle="modal" data-bs-target="#modalBook">
+                                <span class="badge rounded-pill bg-warning"><i class='bi bi-plus-circle'></i></span> <span class="text-warning">New Beneficiary</span>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label for="message" class="form-label">Message</label>
+                            <input type="text" class="form-control" id="description" name="description" placeholder="Optional message">
+                        </div>
+                    </div>
+                    <div class="row mt-3 mb-3">
+                        <div class="col-md-12 text-end">
+                            <input class="btn btn-warning" type="button" value="Transfer" onclick="makeTransfer()">
+                            <a class="btn btn-secondary border-white bg-white text-dark" href="{% url 'transfer' %}">Cancel</a>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div id="message" class="col-md-12"></div>
+                    </div>
+                </div>
+                <div class="col-md-4 order-md-2 text-dark mt-2">
+                    <ul class="list-group mb-3 mt-4">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div><h6 class="my-0">Account Balance</h6></div>
+                            <div class="text-success"><h6 class="my-0" id="account_balance"></h6></div>
+                        </li>
+                    </ul>
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-muted">Transfer Detail</span>
+                    </h4>
+                    <ul class="list-group mb-3">
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div><h6 class="my-0">Beneficiary</h6></div>
+                            <span class="font-weight-light" id="details_name"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div><h6 class="my-0">Beneficiary Account</h6></div>
+                            <span class="font-weight-light" id="details_account"></span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between lh-condensed">
+                            <div><h6 class="my-0">Beneficiary Bank</h6></div>
+                            <span class="text-uppercase" id="details_bank"></span>
+                        </li>
+                    </ul>
+                <div>
+            </div>
+        </div>
+        <!-- modal add new destinatary to book -->
+        <div class="modal fade" tabindex="-1" id="modalBook">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content bg-dark">
+                    <div class="modal-header">
+                        <h5 class="modal-title">Add Beneficiary</h5>
+                        <button type="button" class="btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="form-label" for="modal_name">Name*</label>
+                                    <input type="text" id="modal_name" name="first_name" class="form-control" required>
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="form-label" for="modal_bank">Bank*</label>
+                                    <select class="form-select" id="modal_bank" name="bank" required></select>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <label class="form-label" for="modal_type">Account type*</label>
+                                    <select class="form-select" id="modal_type" name="product_type" required></select>
+                                </div>
+                                <div class="col-md-6 mt-3">
+                                    <label class="form-label" for="modal_account">Account number*</label>
+                                    <input type="text" id="modal_account" name="account_number" class="form-control" required>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="reset" class="btn btn-secondary border-white bg-white text-dark" data-bs-dismiss="modal">Cancel</button>
+                        <input type="button" class="btn btn-warning" value="Add" onclick="addBeneficiary()">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
+
+{% block js %}
+<script type="text/javascript">
+    // get user products
+    fetch('{% url "api_accounts" %}', {
+        method: "GET",
+    })
+    .then(response => response.json())
+    .then(result => {
+        document.getElementById('origin').value = result.number
+        document.getElementById('text_origin').placeholder = `${ result.type } ${ result.number }`
+        document.getElementById('account_balance').innerText = new Intl.NumberFormat('en-US', { 
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+        }).format(result.balance)
+    })
+    // get user book list
+    fetch('{% url "api_beneficiaries" %}', {
+        method: "GET",
+    })
+    .then(response => response.json())
+    .then(result => {
+        result.forEach(beneficiary => {
+            let option   = document.createElement('option');
+            option.value = beneficiary.account_number;
+            option.text  = `${ beneficiary.first_name } - ${ beneficiary.bank }`;
+            let select   = document.getElementById('book_list');
+            select.appendChild(option);
+        })
+        // setup transfer details
+        document.getElementById('beneficiary_name').value    = result[0].first_name;
+        document.getElementById('beneficiary_bank').value    = result[0].bank;
+        document.getElementById('beneficiary_account').value = result[0].account_number;
+        document.getElementById('details_name').innerText    = result[0].first_name;
+        document.getElementById('details_account').innerText = result[0].account_number;
+        document.getElementById('details_bank').innerText    = result[0].bank;
+    })
+    // update transfer details
+    function update_details(book_list) {
+        let account = book_list.options[book_list.selectedIndex].value;
+        let beneficiary_data = book_list.options[book_list.selectedIndex].text.split('-');
+        document.getElementById('beneficiary_name').value    = beneficiary_data[0].trim();
+        document.getElementById('beneficiary_bank').value    = beneficiary_data[1].trim();
+        document.getElementById('beneficiary_account').value = account;
+        document.getElementById('details_name').innerText    = beneficiary_data[0].trim();
+        document.getElementById('details_account').innerText = account;
+        document.getElementById('details_bank').innerText    = beneficiary_data[1].trim();
+    }
+    // fill banks modal list
+    fetch('{% url "api_banks" %}', {
+        method: "GET",
+    })
+    .then(response => response.json())
+    .then(result => {
+        result.forEach(bank => {
+            let option = document.createElement('option');
+            option.value = bank.id;
+            option.text  = bank.name;
+            let select = document.getElementById('modal_bank');
+            select.appendChild(option);
+        })
+    })
+    // fill product types modal list
+    fetch('{% url "api_product_types" %}', {
+        method: "GET",
+    })
+    .then(response => response.json())
+    .then(result => {
+        result.forEach(type => {
+            let option   = document.createElement('option');
+            option.value = type.id;
+            option.text  = type.name;
+            let select = document.getElementById('modal_type');
+            select.appendChild(option);
+        })
+    })
+    // make transfer
+    function makeTransfer() {
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        const data = { 
+            origin:                 Number(document.querySelector('[name=origin]').value),
+            beneficiary_account:    Number(document.querySelector('[name=beneficiary_account]').value),
+            beneficiary_bank:       document.querySelector('[name=beneficiary_bank]').value,
+            amount:                 Number(document.querySelector('[name=amount]').value),
+            description:            document.querySelector('[name=description]').value,
+        };
+
+        fetch('{% url "api_transfer" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.code == "0000") {
+                document.querySelector("#account_balance").innerText = new Intl.NumberFormat('en-US', { 
+                    style: 'currency',
+                    currency: 'USD',
+                    minimumFractionDigits: 0,
+                }).format(result.originAccountBalance)
+            }
+            let html = `<div class="alert ${result.message.type} alert-dismissible fade show" role="alert">`
+            html += result.message.content
+            html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+            html += '</div>'
+            document.querySelector("#message").innerHTML = html
+            document.querySelector('[name=amount]').value = ''
+            document.querySelector('[name=description]').value = ''
+        })
+    }
+    // add beneficiary
+    function addBeneficiary() {
+        const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+        let bankElement = document.querySelector('[name=bank]')
+        let productTypeElement = document.querySelector('[name=product_type]')
+        const data = { 
+            first_name:     document.querySelector('[name=first_name]').value,
+            bank:           Number(bankElement.options[bankElement.selectedIndex].value),
+            product_type:   productTypeElement.options[productTypeElement.selectedIndex].value,
+            account_number: Number(document.querySelector('[name=account_number]').value),
+        };
+
+        fetch('{% url "api_beneficiaries" %}', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrftoken,
+            },
+            body: JSON.stringify(data),
+        })
+        .then(response => response.json())
+        .then(result => {
+            if (result.code == "0000") {
+                let option   = document.createElement('option')
+                option.value = result.account_number;
+                option.text  = `${ result.first_name } - ${ result.bank }`
+                let select   = document.getElementById('book_list')
+                select.appendChild(option)
+                document.getElementById('book_list').value = result.account_number
+                update_details(document.getElementById('book_list'))
+            }
+            let html = `<div class="alert ${result.message.type} alert-dismissible fade show" role="alert">`
+            html += result.message.content
+            html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
+            html += '</div>'
+            document.querySelector("#message").innerHTML = html
+            const modalBook = document.querySelector('#modalBook')
+            const modalInstance = bootstrap.Modal.getInstance(modalBook)
+            modalInstance.hide()
+        })
+    }
+</script>
+{% endblock %}

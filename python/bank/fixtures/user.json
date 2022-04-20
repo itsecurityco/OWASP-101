@@ -1,0 +1,20 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$320000$xY7KsbRQ9IPTSMOqCTZWiD$v86Gmkk5xhI1ikakA0eZ2fRJ2WcigOQWoERrbtVm6go=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "snowbell",
+      "first_name": "Snowbell",
+      "last_name": "",
+      "email": "snowbell@bank",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2022-03-25T05:24:19Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  }
+]

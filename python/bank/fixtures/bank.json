@@ -1,0 +1,23 @@
+[
+  {
+    "model": "bank.bank",
+    "pk": 1,
+    "fields": {
+      "name": "Bank PY"
+    }
+  },
+  {
+    "model": "bank.bank",
+    "pk": 2,
+    "fields": {
+      "name": "Bank Pug"
+    }
+  },
+  {
+    "model": "bank.bank",
+    "pk": 3,
+    "fields": {
+      "name": "Bank ITSecurityCO"
+    }
+  }
+]

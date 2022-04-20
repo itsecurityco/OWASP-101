@@ -1,0 +1,43 @@
+{% extends "bank/layout.html" %}
+
+{% load static %}
+
+{% block content %}
+<div class="container">
+    <div class="starter-template">
+        <div class="mb-5 text-center">
+            <img class="mb-3" src="{% static 'bank/images/python.png' %}" alt="" width="72" height="72">
+            <h2>Become our customer</h2>
+            <p class="lead">Sign up</p>
+        </div>
+
+        <form action="{% url 'sign_up' %}" method="POST">
+            {% csrf_token %}
+            <div class="mb-3">
+                <label for="first_name" class="form-label">Name</label>
+                <input type="text" class="form-control" id="first_name" name="first_name" required>
+            </div>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username</label>
+                <input type="text" class="form-control" id="username" name="username" required>
+            </div>
+            <div class="mb-3">
+                <label for="password" class="form-label">Password</label>
+                <input type="password" class="form-control" id="password" name="password" required>
+            </div>
+
+            <p class="text-end"><a href="{% url 'sign_in' %}" class="text-warning">Already a customer?</a></p>
+            <input type="submit" class="btn btn-warning" value="Register">
+            <button type="reset" class="btn btn-secondary border-white bg-white text-dark">Cancel</button>
+        </form>
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+                {% endfor %}
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

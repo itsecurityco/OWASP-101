@@ -1,0 +1,12 @@
+[
+  {
+    "model": "bank.product",
+    "pk": 1337,
+    "fields": {
+      "user": 1,
+      "balance": "1000000.00",
+      "bank": 1,
+      "type": "CA"
+    }
+  }
+]
