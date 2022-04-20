@@ -171,14 +171,6 @@ def transfer(request):
             })
 
         # check that origin account belongs to the current user.
-        if data["origin"] != request.user.products.get().number:
-            return JsonResponse({
-                "code": dict(Transfer.CODES).get(Transfer.FAILED_CODE),
-                "message": {
-                    "type": "alert-danger",
-                    "content": "You do not have permission to perform this operation."
-                },
-            })
         
         # check origin account exists
         try:
