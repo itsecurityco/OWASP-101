@@ -60,7 +60,7 @@ if data["origin"] != request.user.products.get().number:
 
 ## 🚀 Hands-on
 Let's try to hack it 💀
-1. Download the distribution code from https://github.com/itsecurityco/OWASP-101/archive/refs/heads/master.zip and unzip it.
+1. Download the distribution code from https://github.com/itsecurityco/OWASP-101/archive/refs/heads/A01.zip and unzip it.
 2. Run `docker compose build db` and and wait until it's over to build and populate the database.
 3. Run `docker compose up python -d` to build and start the vulnerable **Python** application.
 4. Run `docker compose up php -d` to build and start the vulnerable **PHP** application.
