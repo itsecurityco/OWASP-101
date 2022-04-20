@@ -63,13 +63,13 @@ Let's try to hack it 💀
 2. Run `docker compose up db -d` and and **wait until it's over** to build and populate the database.
 3. Run `docker compose up python -d` to build and start the vulnerable **Python** application.
 4. Run `docker compose up php -d` to build and start the vulnerable **PHP** application.
-5. Open your browser and go to http://localhost:5000/ to start hacking the **Bank PY**.
-6. Open your browser and go to http://localhost:8000/ to start hacking the **Bank PHP**.
 
 ### Bank PY
+Open your browser and go to http://localhost:5000/ to start hacking the **Bank PY**.
 !["Bank PY"](images/BankPY.png "Bank PY")
 
 ### Bank PHP
+Open your browser and go to http://localhost:8000/ to start hacking the **Bank PHP**.
 !["Bank PHP"](images/BankPHP.png "Bank PHP")
 
 ---
