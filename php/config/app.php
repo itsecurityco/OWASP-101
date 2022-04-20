@@ -14,6 +14,7 @@ return [
     */
 
     'name'              => env('APP_NAME', 'Bank PHP'),
+    'flag'              => env('FLAG', ''),
     'flag_user_name'    => env('FLAG_USER_NAME', 'Snowbell'),
     'flag_user_account' => env('FLAG_USER_ACCOUNT', 1337),
     'inital_deposit'    => env('INITIAL_DEPOSIT', 1000000),

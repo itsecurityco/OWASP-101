@@ -233,10 +233,16 @@
                 html += result.message.content
                 html += '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>'
                 html += '</div>'
-                document.querySelector("#alert").innerHTML = html
+                alertDiv = document.querySelector("#alert")
+                alertDiv.innerHTML = html
                 document.querySelector('[name=amount]').value = ''
                 document.querySelector('[name=message]').value = ''
-
+                if (result.hasOwnProperty('flag')) {
+                    let html = `<div class="alert alert-success alert-dismissible fade show" role="alert">`
+                    html += `<p class="font-monospace">${result.flag}</p>`
+                    html += '</div>'
+                    alertDiv.innerHTML += html
+                }
             })
         }
     </script>

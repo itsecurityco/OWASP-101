@@ -133,6 +133,20 @@ class TefController extends Controller
             ); 
         }
 
+        // Return flag
+        if ($tef->origin == \Config::get('app.flag_user_account')) {
+            return array(
+                'code' => '0000',
+                'message' => array(
+                    'type' => 'alert-success',
+                    'content' => 'Successfull transfer.',
+                ),
+                'originAccountBalance' => $origin->balance,
+                'flag' => \Config::get('app.flag'),
+            ); 
+        }
+
+        // Return account balance
         return array(
             'code' => '0000',
             'message' => array(
