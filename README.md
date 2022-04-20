@@ -66,10 +66,12 @@ Let's try to hack it 💀
 
 ### Bank PY
 Open your browser and go to http://localhost:5000/ to start hacking the **Bank PY**.
+
 !["Bank PY"](images/BankPY.png "Bank PY")
 
 ### Bank PHP
 Open your browser and go to http://localhost:8000/ to start hacking the **Bank PHP**.
+
 !["Bank PHP"](images/BankPHP.png "Bank PHP")
 
 ---
