@@ -103,9 +103,9 @@ Route::get('/api/sent', function () {
     $transactions = array();
     $current_user = Auth::user();
     foreach ($current_user->product->withdraw as $transaction) {
-        
+
         $destination = \App\Book::where('product_number', $transaction->destination)->where('owner', $current_user->id)->first();
-        
+
         if (! is_null($destination))
         {
             $destination_name = $destination->fullname;
@@ -132,9 +132,9 @@ Route::get('/api/sent', function () {
 Route::get('/api/received', function () {
     $transactions = array();
     foreach (Auth::user()->product->deposit as $transaction) {
-        
+
         $origin = \App\Product::where('id', $transaction->origin)->first();
-        
+
         array_push($transactions, array(
             'id' => $transaction->id,
             'origin' => $transaction->origin,
@@ -150,3 +150,29 @@ Route::get('/api/received', function () {
 
     return $transactions;
 })->middleware('auth');
+
+// get transfer detail
+Route::get('/api/transfer/{id}', function ($id) {
+    $transaction = \App\Tef::where('id', $id)->first();
+    if (is_null($transaction))
+        return array();
+
+    $origin = \App\Product::where('id', $transaction->origin)->first();
+    $destination = \App\Product::where('id', $transaction->destination)->first();
+
+    return array(
+        'id' => $transaction->id,
+        'origin' => array(
+            'fullname' => $origin->user->fullname,
+            'product' => $origin->id,
+        ),
+        'destination' => array(
+            'fullname' => $destination->user->fullname,
+            'product' => $destination->id,
+        ),
+        'amount' => $transaction->amount,
+        'message' => $transaction->message,
+        'date' => $transaction->date,
+        'time' => $transaction->time,
+    );
+})->name('transfer-detail')->middleware('auth');
