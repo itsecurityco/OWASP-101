@@ -59,7 +59,8 @@
                 html += `<tr id='tdetail-${transfer.id}' class='tdetail d-none'><td colspan='4' class='text-start text-muted ps-3 bg-light'>`
                     html += `<p><strong>Detail of transfer received</strong></p>`
                     html += `Comment: ${transfer.description}</td>`
-                html += `<td colspan='4' class='text-start text-muted align-middle bg-light'>ID Transfer ${transfer.id}</td></tr>`
+                html += `<td colspan='4' class='text-start text-muted align-middle bg-light'>`
+                html += `<a href="/api/transfer/${transfer.id}">ID Transfer ${transfer.id}</a></td></tr>`
             })
             document.getElementById('transfer_body').innerHTML = html;
         }

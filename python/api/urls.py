@@ -11,4 +11,5 @@ urlpatterns = [
     path('banks', views.banks, name='api_banks'),
     path('product_types', views.product_types, name='api_product_types'),
     path('transfer', views.transfer, name='api_transfer'),
+    path('transfer/<int:transfer_id>', views.transfer_detail, name='api_transfer_detail'),
 ]

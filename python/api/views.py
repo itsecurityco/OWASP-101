@@ -255,3 +255,24 @@ def transfer(request):
             "message": {"type": "alert-success", "content": "Approved transaction."},
             "originAccountBalance": origin_account.balance,
         })
+
+
+@login_required
+def transfer_detail(request, transfer_id):
+    try:
+        transaction = Transfer.objects.get(pk=transfer_id)
+        return JsonResponse({
+            'id': transaction.id,
+            'origin': {
+                'fullname': transaction.origin.user.first_name,
+                'product': str(transaction.origin.number),
+            },
+            'destination': {
+                'product': str(transaction.destination),
+            },
+            'amount': float(transaction.amount),
+            'description': transaction.description,
+            'date': transaction.created_at.strftime("%d/%m/%Y %H:%M:%S"),
+        }, safe=False)
+    except Transfer.DoesNotExist:
+        return JsonResponse([], safe=False)
